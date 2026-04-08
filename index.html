@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Independence Assessment</title>
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 15px; background-color: transparent; }
         #quiz-container { max-width: 550px; margin: auto; padding: 25px; border-radius: 15px; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid #f0f0f0; }
-        .quiz-frame { display: none; min-height: 350px; }
+        .quiz-frame { display: none; min-height: 380px; }
         .quiz-frame.active { display: flex; flex-direction: column; }
         h3 { color: #6096db; margin-top: 0; border-bottom: 2px solid #f0f7ff; padding-bottom: 10px; }
         .option-list { flex-grow: 1; }
@@ -19,7 +18,7 @@
         .finish-btn { background: #2ecc71; }
         #progress-bg { width: 100%; height: 6px; background: #eee; border-radius: 10px; margin-bottom: 25px; }
         #progress-bar { width: 25%; height: 100%; background: #6096db; border-radius: 10px; transition: 0.5s; }
-        .results-box { text-align: center; padding: 10px; }
+        .results-box { text-align: center; }
         .restart-link { display: block; margin-top: 25px; color: #999; text-decoration: underline; background: none; border: none; cursor: pointer; width: 100%; }
     </style>
 </head>
@@ -32,13 +31,12 @@
 
     <div id="frame-1" class="quiz-frame active">
         <h3>🏡 Daily Living</h3>
-        <p style="font-size: 0.9em; color: #777;">Check any that apply:</p>
         <div class="option-list">
             <label><input type="checkbox" class="risk"> Trouble getting dressed or ready?</label>
             <label><input type="checkbox" class="risk"> Feeling unsteady walking the house?</label>
             <label><input type="checkbox" class="risk"> Any falls or close calls recently?</label>
             <label><input type="checkbox" class="risk"> Bathing or showering getting harder?</label>
-            <label><input type="checkbox" class="risk"> Skipping meals / cooking is too much?</label>
+            <label><input type="checkbox" class="risk"> Skipping meals because cooking is too much?</label>
         </div>
         <button class="quiz-nav-btn next-btn" onclick="move(2)">Next Section →</button>
     </div>
@@ -62,7 +60,7 @@
             <label><input type="checkbox" class="risk"> Grocery shopping has become difficult?</label>
             <label><input type="checkbox" class="risk"> Laundry or clutter is piling up?</label>
             <label><input type="checkbox" class="risk"> Stairs are becoming scary or difficult?</label>
-            <label><input type="checkbox" class="risk"> Feeling unsafe at home, especially at night?</label>
+            <label><input type="checkbox" class="risk"> Feeling unsafe at home at night?</label>
         </div>
         <button class="quiz-nav-btn next-btn" onclick="move(4)">Next Section →</button>
     </div>
@@ -80,9 +78,9 @@
     </div>
 
     <div id="results" class="quiz-frame results-box">
-        <h2 id="res-h" style="margin-top:0;"></h2>
-        <p id="res-p" style="font-size: 1.1em; color: #555;"></p>
-        <div id="next-steps" style="text-align: left; background: #f0f7ff; padding: 15px; border-radius: 10px; margin-top: 20px;"></div>
+        <h2 id="res-h" style="margin-top:0; color:#333;"></h2>
+        <p id="res-p" style="font-size: 1.05em; color: #555; text-align: left;"></p>
+        <div id="next-steps" style="text-align: left; background: #f0f7ff; padding: 20px; border-radius: 10px; margin-top: 15px; border-left: 5px solid #6096db;"></div>
         <button class="restart-link" onclick="location.reload()">Restart Assessment</button>
     </div>
 </div>
@@ -104,18 +102,18 @@
 
         if(score <= 2) { 
             h.innerText = "You’re Doing Well!"; 
-            p.innerText = "It looks like things are manageable right now. Keeping an eye on safety is the best way to stay independent.";
-            steps.innerHTML = "<strong>Next Steps:</strong><ul><li>Maintain your social routines.</li><li>Consider a home safety walkthrough.</li></ul>";
+            p.innerText = "It looks like things are manageable right now. Keeping an eye on safety and staying active is the best way to maintain your independence. Our Independent Living residences would be a great fit.";
+            steps.innerHTML = "<strong>Next Steps:</strong><ul style='margin-top:10px;'><li>Speak to a John-Wesley Villas representative about our Independent Living availability.</li></ul>";
         }
         else if(score <= 6) { 
-            h.innerText = "Support Helpful"; 
-            p.innerText = "A few red flags suggest that daily tasks are becoming stressful. Small changes now can prevent bigger issues later.";
-            steps.innerHTML = "<strong>Next Steps:</strong><ul><li>Explore meal delivery or light housekeeping.</li><li>Tour a community to see what support looks like.</li></ul>";
+            h.innerText = "Support Could Be Beneficial"; 
+            p.innerText = "A few red flags suggest that daily tasks are becoming stressful. Small changes now, like extra help at home or exploring life at John-Wesley Villas, can prevent bigger issues later.";
+            steps.innerHTML = "<strong>Next Steps:</strong><ul style='margin-top:10px;'><li>Explore meal delivery or light housekeeping services.</li><li>Schedule a tour just to see what the \"supportive lifestyle\" looks like before you need it.</li></ul>";
         }
         else { 
-            h.innerText = "Time to Explore Options"; 
-            p.innerText = "Your safety and wellness are priorities. Assisted living provides the support needed to live with less stress and more connection.";
-            steps.innerHTML = "<strong>Next Steps:</strong><ul><li>Schedule a visit to a community this week.</li><li>Talk to family about a transition plan.</li></ul>";
+            h.innerText = "It's Time to Seriously Explore Options"; 
+            p.innerText = "Your safety and wellness are the top priorities. Based on your answers, your current routine may be becoming unsafe. Assisted living isn't about losing independence; it’s about gaining the support needed to live with less stress. We're here to help.";
+            steps.innerHTML = "<strong>Next Steps:</strong><ul style='margin-top:10px;'><li>Schedule a tour with John-Wesley Villas this week.</li><li>Talk to your family or a trusted doctor about a transition plan.</li></ul>";
         }
     }
 </script>
