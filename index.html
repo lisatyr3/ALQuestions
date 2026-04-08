@@ -1,0 +1,134 @@
+<div id="care-quiz-container" style="max-width: 650px; margin: 40px auto; padding: 30px; border-radius: 20px; background: #ffffff; box-shadow: 0 10px 30px rgba(0,0,0,0.1); font-family: sans-serif; line-height: 1.6;">
+    
+    <div id="quiz-intro-header" style="text-align: center; margin-bottom: 30px;">
+        <h2 style="color: #333; margin-bottom: 10px;">Independence & Safety Check</h2>
+        <p style="color: #777;">A gentle guide for the next steps in your journey.</p>
+        <div style="width: 100%; height: 8px; background: #eee; border-radius: 10px; margin-top: 20px;">
+            <div id="quiz-progress-bar" style="width: 25%; height: 100%; background: #6096db; border-radius: 10px; transition: width 0.4s ease;"></div>
+        </div>
+    </div>
+
+    <div id="quiz-steps-wrapper">
+        <div class="quiz-frame" id="frame-1">
+            <h3 style="color: #6096db; margin-bottom: 20px;">🏡 Daily Living & Independence</h3>
+            <div class="option-list">
+                <label><input type="checkbox" class="risk-check"> Any trouble getting dressed or ready in the morning?</label>
+                <label><input type="checkbox" class="risk-check"> Do you feel unsteady walking around the house?</label>
+                <label><input type="checkbox" class="risk-check"> Any falls or close calls recently?</label>
+                <label><input type="checkbox" class="risk-check"> Is bathing/showering getting harder than it used to be?</label>
+                <label><input type="checkbox" class="risk-check"> Skipping meals because cooking feels like too much?</label>
+            </div>
+            <button type="button" class="quiz-nav-btn main-action" data-next="2">Next Section →</button>
+        </div>
+
+        <div class="quiz-frame" id="frame-2" style="display:none;">
+            <h3 style="color: #6096db; margin-bottom: 20px;">💊 Health & Memory</h3>
+            <div class="option-list">
+                <label><input type="checkbox" class="risk-check"> Hard to keep track of all medications?</label>
+                <label><input type="checkbox" class="risk-check"> Ever forget to take meds or take them twice?</label>
+                <label><input type="checkbox" class="risk-check"> Noticed changes in your memory lately?</label>
+                <label><input type="checkbox" class="risk-check"> Do bills or paperwork feel overwhelming?</label>
+                <label><input type="checkbox" class="risk-check"> Ever feel confused about where you're going?</label>
+            </div>
+            <button type="button" class="quiz-nav-btn main-action" data-next="3">Next Section →</button>
+        </div>
+
+        <div class="quiz-frame" id="frame-3" style="display:none;">
+            <h3 style="color: #6096db; margin-bottom: 20px;">🍽️ Nutrition & Home Safety</h3>
+            <div class="option-list">
+                <label><input type="checkbox" class="risk-check"> Have you lost weight without trying?</label>
+                <label><input type="checkbox" class="risk-check"> Is grocery shopping getting difficult?</label>
+                <label><input type="checkbox" class="risk-check"> Noticeable clutter or laundry piling up?</label>
+                <label><input type="checkbox" class="risk-check"> Are stairs becoming harder or scary?</label>
+                <label><input type="checkbox" class="risk-check"> Do you feel unsafe at home at night?</label>
+            </div>
+            <button type="button" class="quiz-nav-btn main-action" data-next="4">Next Section →</button>
+        </div>
+
+        <div class="quiz-frame" id="frame-4" style="display:none;">
+            <h3 style="color: #6096db; margin-bottom: 20px;">😊 Social Life & Support</h3>
+            <div class="option-list">
+                <label><input type="checkbox" class="risk-check"> Feeling lonely or bored during the week?</label>
+                <label><input type="checkbox" class="risk-check"> Are you still comfortable driving?</label>
+                <label><input type="checkbox" class="risk-check"> Stopped doing the things you once enjoyed?</label>
+                <label><input type="checkbox" class="risk-check"> Worry about being a "burden" to family?</label>
+                <label><input type="checkbox" class="risk-check"> Is anything just getting "harder" lately?</label>
+            </div>
+            <button type="button" id="submit-quiz-btn" class="quiz-nav-btn finish-action">See My Results</button>
+        </div>
+    </div>
+
+    <div id="final-results-display" style="display:none; text-align: center;">
+        <div id="res-icon" style="font-size: 50px; margin-bottom: 15px;"></div>
+        <h2 id="res-heading" style="color: #333;"></h2>
+        <p id="res-desc" style="color: #555; margin-bottom: 25px;"></p>
+        <div style="background: #f0f7ff; padding: 20px; border-radius: 10px; text-align: left; border-left: 5px solid #6096db;">
+            <ul id="res-list"></ul>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+        <button type="button" id="restart-quiz-link" style="background: none; border: none; color: #999; text-decoration: underline; cursor: pointer; font-size: 0.9em;">Restart Assessment</button>
+    </div>
+</div>
+
+<style>
+    .option-list label { display: block; background: #f9f9f9; padding: 12px; margin-bottom: 8px; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
+    .option-list label:hover { background: #f0f7ff; border-color: #6096db; }
+    .option-list input { margin-right: 12px; transform: scale(1.2); }
+    .quiz-nav-btn { width: 100%; padding: 15px; border: none; border-radius: 10px; color: white; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 15px; }
+    .main-action { background: #6096db; }
+    .finish-action { background: #2ecc71; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const wrapper = document.getElementById('care-quiz-container');
+    
+    // Handle "Next" Buttons
+    wrapper.querySelectorAll('.main-action').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const nextStep = this.getAttribute('data-next');
+            wrapper.querySelectorAll('.quiz-frame').forEach(f => f.style.display = 'none');
+            document.getElementById('frame-' + nextStep).style.display = 'block';
+            document.getElementById('quiz-progress-bar').style.width = (nextStep / 4 * 100) + '%';
+            wrapper.scrollIntoView({behavior: 'smooth', block: 'start'});
+        });
+    });
+
+    // Handle Restart
+    document.getElementById('restart-quiz-link').addEventListener('click', function() {
+        location.reload();
+    });
+
+    // Handle Final Submit
+    document.getElementById('submit-quiz-btn').addEventListener('click', function() {
+        const score = wrapper.querySelectorAll('.risk-check:checked').length;
+        document.getElementById('quiz-steps-wrapper').style.display = 'none';
+        document.getElementById('quiz-intro-header').style.display = 'none';
+        document.getElementById('final-results-display').style.display = 'block';
+
+        const heading = document.getElementById('res-heading');
+        const desc = document.getElementById('res-desc');
+        const icon = document.getElementById('res-icon');
+        const list = document.getElementById('res-list');
+
+        if (score <= 2) {
+            icon.innerText = "☀️";
+            heading.innerText = "You’re Doing Well!";
+            desc.innerText = "It looks like things are manageable right now. Keeping an eye on safety is the best way to stay independent.";
+            list.innerHTML = "<li>Maintain your social routines.</li><li>Consider a home safety walkthrough.</li>";
+        } else if (score <= 6) {
+            icon.innerText = "🏠";
+            heading.innerText = "Support Could Be Beneficial";
+            desc.innerText = "A few red flags suggest that daily tasks are becoming stressful. Small changes now can prevent bigger issues later.";
+            list.innerHTML = "<li>Explore meal delivery or light housekeeping.</li><li>Tour a community to see what support looks like.</li>";
+        } else {
+            icon.innerText = "🧭";
+            heading.innerText = "Time to Consider a Move";
+            desc.innerText = "Your safety and wellness are priorities. Assisted living provides the support needed to live with less stress and more connection.";
+            list.innerHTML = "<li>Schedule a visit to a community this week.</li><li>Talk to family about a transition plan.</li>";
+        }
+    });
+});
+</script>
